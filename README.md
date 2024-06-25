@@ -5,6 +5,7 @@
 ## Riset Project
 
 - openweathermap API
+- asset flaticon.com
 
 ## Design
 
