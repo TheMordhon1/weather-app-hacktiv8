@@ -2,14 +2,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #container {
+  position: relative;
   background-color: #ffffff;
   height: 100vh;
   width: 100%;
-  position: relative;
   padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .top-info {
@@ -20,13 +24,85 @@
 .top-left-info {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
+}
+
+#location {
+  color: #8a9e9a;
+  font-size: 3rem;
 }
 
 .top-left-info .air-temperature {
   display: flex;
+  margin-top: 40px;
+  margin-left: 40px;
 }
 
 .top-left-info .air-temperature .units {
   display: flex;
+  color: #8a9e9a;
+}
+
+#weather-name {
+  margin-left: 40px;
+}
+
+.top-right-info {
+  display: flex;
+  gap: 5px;
+}
+
+#search-input {
+  height: 40px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #8a9e9a;
+  background-color: #e0edea;
+  color: #333333;
+  font-size: 1rem;
+}
+
+#search-input:focus {
+  outline: none;
+}
+
+.btn-primary {
+  height: 40px;
+  width: 40px;
+  background-color: #8a9e9a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.weekly-weather {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  width: 80%;
+  margin: 0 auto;
+  place-items: center;
+  background-color: #f2eaea;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.weekly-weather .weather-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#info-day {
+  color: #8a9e9a;
+  font-size: 1rem;
+}
+
+.weekly-weather .weather-info .temperature {
+  display: flex;
+  gap: 5px;
+}
+
+#weather-unit1 {
+  font-weight: bold;
 }
