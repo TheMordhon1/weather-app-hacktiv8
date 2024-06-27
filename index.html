@@ -6,6 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Info Cuaca</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+    rel="stylesheet">
+
 </head>
 
 <body>
@@ -25,12 +32,22 @@
       </div>
       <div class="top-right-info">
         <input type="text" placeholder="Search city here" id="search-input">
-        <button class="btn-primary">S</button>
-        <button class="btn-primary">L</button>
+        <button class="btn-primary"><i class="fas fa-search"></i></button>
+        <button class="btn-primary"><i class="fas fa-map-marker-alt"></i></button>
       </div>
     </div>
 
-    <div class="weekly-weather">
+    <div class="mid-info">
+      <div class="info-wrapper">
+        <i class="fas fa-tint"></i>
+        <p id="humidity">62%</p>
+      </div>
+      <div class="info-wrapper">
+        <i class="fas fa-wind"></i>
+        <p id="wind-speed">2.57 km/h</p>
+      </div>
+    </div>
+    <div class="bottom-info">
       <div class="weather-info">
         <p id="info-day">Mon</p>
         <img width="80" src="./asset/weather.png" alt="weather-icon" id="info-weather-icon">
@@ -82,6 +99,7 @@
     </div>
   </main>
   <script src="index.js"></script>
+  <script src="https://kit.fontawesome.com/b57c8f49e3.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
