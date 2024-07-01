@@ -73,6 +73,7 @@ formInput.addEventListener("submit", async (event) => {
     const rawData = await response.json();
     const data = rawData.results[0];
     getCurrentWeather(data.latitude, data.longitude);
+    getDailyWeather(data.latitude, data.longitude);
 
     // update city
     const city = document.querySelector("#location");
@@ -128,4 +129,55 @@ const getCurrentWeather = async (latitude, longitude) => {
   }
 };
 
+const getDailyWeather = async (latitude, longitude) => {
+  try {
+    const response = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FBangkok`
+    );
+    const data = await response.json();
+
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const bottomInfo = document.querySelector(".bottom-info");
+    bottomInfo.innerHTML = "";
+    data.daily.time.map((item, index) => {
+      // parent
+      const weatherInfoElement = document.createElement("div");
+      weatherInfoElement.classList.add("weather-info");
+
+      // days
+      const infoDay = document.createElement("p");
+      infoDay.id = "info-day";
+      let date = new Date(item);
+      infoDay.innerHTML = days[date.getDay()];
+      weatherInfoElement.append(infoDay);
+
+      // icons
+      const infoWeatherIcon = document.createElement("img");
+      infoWeatherIcon.id = "info-weather-icon";
+      infoWeatherIcon.width = 70;
+      infoWeatherIcon.src = `asset/weather/${
+        weatherIcons[data.daily.weather_code[index]]
+      }`;
+      weatherInfoElement.append(infoWeatherIcon);
+
+      // temperatures max to min
+      const temperatures = document.createElement("div");
+      temperatures.classList.add("temperatures");
+      const maxTemp = document.createElement("p");
+      maxTemp.innerHTML = `${data.daily.temperature_2m_max[index]} °`;
+      maxTemp.style.fontWeight = "bold";
+      const minTemp = document.createElement("p");
+      minTemp.innerHTML = `${data.daily.temperature_2m_min[index]} °`;
+      temperatures.append(maxTemp);
+      temperatures.append(minTemp);
+      weatherInfoElement.append(temperatures);
+
+      bottomInfo.append(weatherInfoElement);
+    });
+  } catch (error) {
+    console.log("daily weather:", error);
+  }
+};
+
 getCurrentWeather("-6.4213", "106.7217");
+getDailyWeather("-6.4213", "106.7217");

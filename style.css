@@ -133,8 +133,8 @@
 /* bottom info */
 .bottom-info {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  width: 80%;
+  grid-template-columns: repeat(7, 1fr);
+  width: 90%;
   margin: 0 auto;
   place-items: center;
   background-color: #ffffff3f;
@@ -154,11 +154,11 @@
   font-size: 1rem;
 }
 
-.bottom-info .weather-info .temperature {
+.bottom-info .weather-info .temperatures {
   display: flex;
   gap: 5px;
 }
 
-#weather-unit1 {
-  font-weight: bold;
+.bottom-info .weather-info .temperatures p {
+  font-size: 1rem;
 }
