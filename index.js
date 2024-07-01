@@ -32,6 +32,37 @@ const weatherCodes = {
   99: "Thunderstorm with heavy hail",
 };
 
+const weatherIcons = {
+  0: "clear-sky.png",
+  1: "mainly-clear.png",
+  2: "partly-cloudy.png",
+  3: "overcast.png",
+  45: "fog.png",
+  48: "fog.png",
+  51: "slight-rain.png",
+  53: "slight-rain.png",
+  55: "moderate-rain.png",
+  56: "slight-rain.png",
+  57: "moderate-rain.png",
+  61: "slight-rain.png",
+  63: "rain.png",
+  65: "moderate-rain.png",
+  66: "slight-rain.png",
+  67: "moderate-rain.png",
+  71: "snow.png",
+  73: "snow.png",
+  75: "snow.png",
+  77: "snow.png",
+  80: "slight-rain.png",
+  81: "rain.png",
+  82: "moderate-rain.png",
+  85: "snow.png",
+  86: "snow.png",
+  95: "storm.png",
+  96: "storm.png",
+  99: "storm.png",
+};
+
 formInput.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -48,6 +79,8 @@ formInput.addEventListener("submit", async (event) => {
     city.innerHTML = data.name;
   } catch (error) {
     console.log("submit:", error);
+  } finally {
+    userInput.value = "";
   }
 });
 
@@ -58,7 +91,7 @@ const getCurrentWeather = async (latitude, longitude) => {
     );
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     const videoBackground = document.querySelector(".overlay-video");
     if (data.current.is_day === 0) {
@@ -70,6 +103,12 @@ const getCurrentWeather = async (latitude, longitude) => {
     const time = document.querySelector("#date-time");
     time.innerHTML = new Date(data.current.time);
 
+    const currentWeatherIcon = document.querySelector("#current-weather-icon");
+    currentWeatherIcon.src = `asset/weather/${
+      weatherIcons[data.current.weather_code]
+    }`;
+
+    console.log(currentWeatherIcon);
     const weatherName = document.querySelector("#weather-name");
     weatherName.innerHTML = weatherCodes[data.current.weather_code];
 
@@ -85,3 +124,5 @@ const getCurrentWeather = async (latitude, longitude) => {
     console.log("current data", error);
   }
 };
+
+getCurrentWeather("-6.4213", "106.7217");

@@ -4,16 +4,5 @@
 
 ## Riset Project
 
-- openweathermap API
-- asset flaticon.com
-
-## Design
-
-- color
-
-```
-primary-color: #8A9E9A;
-secondary-color: #222222;
-background-color: #FFFFFF;
-background2-color: #F2EAEA;
-```
+- (https://open-meteo.com)
+- asset flat icon
