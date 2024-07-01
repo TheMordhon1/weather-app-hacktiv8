@@ -92,7 +92,6 @@ const getCurrentWeather = async (latitude, longitude) => {
     );
 
     const data = await response.json();
-    // console.log(data);
 
     const videoBackground = document.querySelector(".overlay-video");
     if (data.current.is_day === 0) {
@@ -136,9 +135,9 @@ const getDailyWeather = async (latitude, longitude) => {
     );
     const data = await response.json();
 
-    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const bottomInfo = document.querySelector(".bottom-info");
     bottomInfo.innerHTML = "";
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     data.daily.time.map((item, index) => {
       // parent
       const weatherInfoElement = document.createElement("div");
@@ -155,6 +154,7 @@ const getDailyWeather = async (latitude, longitude) => {
       const infoWeatherIcon = document.createElement("img");
       infoWeatherIcon.id = "info-weather-icon";
       infoWeatherIcon.width = 70;
+      infoWeatherIcon.title = weatherCodes[data.daily.weather_code[index]];
       infoWeatherIcon.src = `asset/weather/${
         weatherIcons[data.daily.weather_code[index]]
       }`;
