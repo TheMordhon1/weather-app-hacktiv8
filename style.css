@@ -68,13 +68,14 @@
   margin-bottom: 20px;
 }
 
-.top-left-info .air-temperature .units {
+#temp-number {
   display: flex;
+  gap: 6px;
 }
 
-#unit-number,
-.top-left-info .air-temperature .units span {
-  color: white;
+#temp-number span {
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 .top-right-info {

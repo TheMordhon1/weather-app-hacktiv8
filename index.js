@@ -108,12 +108,15 @@ const getCurrentWeather = async (latitude, longitude) => {
       weatherIcons[data.current.weather_code]
     }`;
 
-    console.log(currentWeatherIcon);
+    // console.log(currentWeatherIcon);
     const weatherName = document.querySelector("#weather-name");
     weatherName.innerHTML = weatherCodes[data.current.weather_code];
 
-    const temperature = document.querySelector("#unit-number");
-    temperature.innerHTML = data.current.temperature_2m;
+    const temperatureNumber = document.querySelector("#temp-number");
+    const temperatureUnitNumber = document.createElement("span");
+    temperatureNumber.innerHTML = data.current.temperature_2m;
+    temperatureUnitNumber.innerHTML = data.current_units.temperature_2m;
+    temperatureNumber.append(temperatureUnitNumber);
 
     const humidity = document.querySelector("#humidity");
     humidity.innerHTML = `${data.current.relative_humidity_2m} ${data.current_units.relative_humidity_2m} `;
