@@ -1,5 +1,6 @@
 const userInput = document.querySelector("#search-input");
 const formInput = document.querySelector(".top-right-info");
+const loading = document.querySelector(".loading");
 
 const weatherCodes = {
   0: "Clear sky",
@@ -65,7 +66,7 @@ const weatherIcons = {
 
 formInput.addEventListener("submit", async (event) => {
   event.preventDefault();
-
+  loading.style.display = "flex";
   try {
     const response = await fetch(
       `https://geocoding-api.open-meteo.com/v1/search?name=${userInput.value}&count=1&language=en&format=json`
@@ -80,8 +81,16 @@ formInput.addEventListener("submit", async (event) => {
     city.innerHTML = data.name;
   } catch (error) {
     console.log("submit:", error);
+    const errorText = document.getElementById("error-text");
+    setTimeout(() => {
+      errorText.innerHTML = "";
+    }, 5000);
+    errorText.innerHTML = error ? "Location is invalid" : "";
   } finally {
     userInput.value = "";
+    setTimeout(() => {
+      loading.style.display = "none";
+    }, 500);
   }
 });
 
@@ -179,5 +188,6 @@ const getDailyWeather = async (latitude, longitude) => {
   }
 };
 
+loading.style.display = "none";
 getCurrentWeather("-6.4213", "106.7217");
 getDailyWeather("-6.4213", "106.7217");
