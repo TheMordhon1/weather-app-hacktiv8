@@ -90,7 +90,7 @@ formInput.addEventListener("submit", async (event) => {
     setTimeout(() => {
       loading.style.display = "none";
       userInput.value = "";
-    }, 2000);
+    }, 1000);
   }
 });
 
