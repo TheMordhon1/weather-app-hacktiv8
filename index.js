@@ -1,6 +1,6 @@
 const userInput = document.querySelector("#search-input");
 const formInput = document.querySelector(".top-right-info");
-const loading = document.querySelector(".loading");
+const loading = document.querySelector("#loading");
 
 const weatherCodes = {
   0: "Clear sky",
@@ -87,10 +87,10 @@ formInput.addEventListener("submit", async (event) => {
     }, 5000);
     errorText.innerHTML = error ? "Location is invalid" : "";
   } finally {
-    userInput.value = "";
     setTimeout(() => {
       loading.style.display = "none";
-    }, 500);
+      userInput.value = "";
+    }, 2000);
   }
 });
 
@@ -187,6 +187,20 @@ const getDailyWeather = async (latitude, longitude) => {
     console.log("daily weather:", error);
   }
 };
+
+function updateClock() {
+  const clock = document.getElementById("clock");
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+
+  const timeString = `${hours} : ${minutes}`;
+
+  clock.innerHTML = timeString;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
 
 loading.style.display = "none";
 getCurrentWeather("-6.4213", "106.7217");

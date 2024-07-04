@@ -6,6 +6,24 @@
   color: white;
 }
 
+#loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0.6);
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+
 #container {
   position: relative;
   background-color: #ffffff;
@@ -38,21 +56,14 @@
   object-fit: cover;
 }
 
-.loading {
+
+#clock {
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  color: #333333;
-  background-color: rgba(255, 255, 255, 0.6);
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
+  z-index: 10;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
 }
 
 .top-info,
