@@ -1,3 +1,4 @@
+const container = document.querySelector("#container");
 const userInput = document.querySelector("#search-input");
 const formInput = document.querySelector(".top-right-info");
 const city = document.querySelector("#location");
@@ -190,10 +191,12 @@ const getDailyWeather = async (latitude, longitude) => {
 
 const getInitialWeatherInfo = () => {
   loading.style.display = "flex";
+  container.style.display = "none";
+  getCurrentWeather("-6.4213", "106.7217");
+  getDailyWeather("-6.4213", "106.7217");
   setTimeout(() => {
-    getCurrentWeather("-6.4213", "106.7217");
-    getDailyWeather("-6.4213", "106.7217");
     loading.style.display = "none";
+    container.style.display = "flex";
     city.innerHTML = "Bogor, Indonesia";
   }, 2000);
 };
