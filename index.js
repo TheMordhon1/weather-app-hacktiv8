@@ -70,7 +70,7 @@ formInput.addEventListener("submit", async (event) => {
   loading.style.display = "flex";
   try {
     const response = await fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${userInput.value}&count=1&language=en&format=json`
+      `https://geocoding-api.open-meteo.com/v1/search?name=${userInput.value}&count=1&language=id&format=json`
     );
     const rawData = await response.json();
     const data = rawData.results[0];
@@ -79,9 +79,7 @@ formInput.addEventListener("submit", async (event) => {
     userInput.value = "";
 
     // update city
-    city.innerHTML = `${data.name === "Batavia" ? "Jakarta" : data.name}, ${
-      data.country
-    }`;
+    city.innerHTML = `${data.name}, ${data.country}`;
   } catch (error) {
     console.log("submit:", error);
     const errorText = document.getElementById("error-text");
