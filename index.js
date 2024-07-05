@@ -80,7 +80,8 @@ formInput.addEventListener("submit", async (event) => {
     userInput.value = "";
 
     // update city
-    city.innerHTML = `${data.name}, ${data.country}`;
+    city.innerHTML =
+      data.name == data.country ? data.name : `${data.name}, ${data.country}`;
   } catch (error) {
     console.log("submit:", error);
     const errorText = document.getElementById("error-text");
