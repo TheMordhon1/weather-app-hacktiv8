@@ -3,36 +3,37 @@ const userInput = document.querySelector("#search-input");
 const formInput = document.querySelector(".top-right-info");
 const city = document.querySelector("#location");
 const loading = document.querySelector("#loading");
+const dateTime = document.querySelector("#date-time");
 
 const weatherCodes = {
-  0: "Clear sky",
-  1: "Mainly clear",
-  2: "Partly cloudy",
-  3: "Overcast",
-  45: "Fog and depositing rime fog",
-  48: "Fog and depositing rime fog",
-  51: "Drizzle: Light intensity",
-  53: "Drizzle: Moderate intensity",
-  55: "Drizzle: Dense intensity",
-  56: "Freezing Drizzle: Light intensity",
-  57: "Freezing Drizzle: Dense intensity",
-  61: "Rain: Slight intensity",
-  63: "Rain: Moderate intensity",
-  65: "Rain: Heavy intensity",
-  66: "Freezing Rain: Light intensity",
-  67: "Freezing Rain: Heavy intensity",
-  71: "Snow fall: Slight intensity",
-  73: "Snow fall: Moderate intensity",
-  75: "Snow fall: Heavy intensity",
-  77: "Snow grains",
-  80: "Rain showers: Slight intensity",
-  81: "Rain showers: Moderate intensity",
-  82: "Rain showers: Violent intensity",
-  85: "Snow showers: Slight intensity",
-  86: "Snow showers: Heavy intensity",
-  95: "Thunderstorm: Slight or moderate",
-  96: "Thunderstorm with slight hail",
-  99: "Thunderstorm with heavy hail",
+  0: "Langit cerah",
+  1: "Cerah sebagian",
+  2: "Berawan sebagian",
+  3: "Mendung",
+  45: "Kabut dan kabut rime",
+  48: "Kabut dan kabut rime",
+  51: "Gerimis: Intensitas ringan",
+  53: "Gerimis: Intensitas sedang",
+  55: "Gerimis: Intensitas lebat",
+  56: "Gerimis beku: Intensitas ringan",
+  57: "Gerimis beku: Intensitas lebat",
+  61: "Hujan: Intensitas ringan",
+  63: "Hujan: Intensitas sedang",
+  65: "Hujan: Intensitas lebat",
+  66: "Hujan beku: Intensitas ringan",
+  67: "Hujan beku: Intensitas lebat",
+  71: "Salju: Intensitas ringan",
+  73: "Salju: Intensitas sedang",
+  75: "Salju: Intensitas lebat",
+  77: "Butiran salju",
+  80: "Hujan deras: Intensitas ringan",
+  81: "Hujan deras: Intensitas sedang",
+  82: "Hujan deras: Intensitas berat",
+  85: "Hujan salju: Intensitas ringan",
+  86: "Hujan salju: Intensitas berat",
+  95: "Badai petir: Intensitas ringan atau sedang",
+  96: "Badai petir dengan hujan es kecil",
+  99: "Badai petir dengan hujan es besar",
 };
 
 const weatherIcons = {
@@ -96,6 +97,37 @@ formInput.addEventListener("submit", async (event) => {
   }
 });
 
+const formattingDate = (dateData, selector, wTime) => {
+  let days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+  let months = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Augustus",
+    "September",
+    "October",
+    "November",
+    "Desember",
+  ];
+  let dateString = new Date(dateData);
+
+  const date = dateString.getDate();
+  const day = days[dateString.getDay()];
+  const month = months[dateString.getMonth()];
+  const year = dateString.getFullYear();
+
+  const h = dateString.getHours();
+  const m = dateString.getMinutes();
+
+  selector.innerHTML = wTime
+    ? `${day}, ${date} ${month} ${year} ${h}:${m} WIB`
+    : `${date} ${month} ${year}`;
+};
+
 const getCurrentWeather = async (latitude, longitude) => {
   try {
     const response = await fetch(
@@ -111,8 +143,7 @@ const getCurrentWeather = async (latitude, longitude) => {
       videoBackground.src = "./asset/day.mp4";
     }
 
-    const time = document.querySelector("#date-time");
-    time.innerHTML = new Date(data.current.time);
+    formattingDate(data.current.time, dateTime, true);
 
     const currentWeatherIcon = document.querySelector("#current-weather-icon");
     currentWeatherIcon.src = `asset/weather/${
@@ -148,7 +179,6 @@ const getDailyWeather = async (latitude, longitude) => {
 
     const bottomInfo = document.querySelector(".bottom-info");
     bottomInfo.innerHTML = "";
-    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     data.daily.time.map((item, index) => {
       // parent
       const weatherInfoElement = document.createElement("div");
@@ -158,7 +188,7 @@ const getDailyWeather = async (latitude, longitude) => {
       const infoDay = document.createElement("p");
       infoDay.id = "info-day";
       let date = new Date(item);
-      infoDay.innerHTML = days[date.getDay()];
+      formattingDate(date, infoDay);
       weatherInfoElement.append(infoDay);
 
       // icons
