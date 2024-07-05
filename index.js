@@ -1,5 +1,6 @@
 const userInput = document.querySelector("#search-input");
 const formInput = document.querySelector(".top-right-info");
+const city = document.querySelector("#location");
 const loading = document.querySelector("#loading");
 
 const weatherCodes = {
@@ -75,10 +76,12 @@ formInput.addEventListener("submit", async (event) => {
     const data = rawData.results[0];
     getCurrentWeather(data.latitude, data.longitude);
     getDailyWeather(data.latitude, data.longitude);
+    userInput.value = "";
 
     // update city
-    const city = document.querySelector("#location");
-    city.innerHTML = data.name;
+    city.innerHTML = `${data.name === "Batavia" ? "Jakarta" : data.name}, ${
+      data.country
+    }`;
   } catch (error) {
     console.log("submit:", error);
     const errorText = document.getElementById("error-text");
@@ -89,7 +92,6 @@ formInput.addEventListener("submit", async (event) => {
   } finally {
     setTimeout(() => {
       loading.style.display = "none";
-      userInput.value = "";
     }, 1000);
   }
 });
@@ -188,6 +190,18 @@ const getDailyWeather = async (latitude, longitude) => {
   }
 };
 
+const getInitialWeatherInfo = () => {
+  loading.style.display = "flex";
+  setTimeout(() => {
+    getCurrentWeather("-6.4213", "106.7217");
+    getDailyWeather("-6.4213", "106.7217");
+    loading.style.display = "none";
+    city.innerHTML = "Bogor, Indonesia";
+  }, 2000);
+};
+
+getInitialWeatherInfo();
+
 function updateClock() {
   const clock = document.getElementById("clock");
   const now = new Date();
@@ -201,7 +215,3 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
-
-loading.style.display = "none";
-getCurrentWeather("-6.4213", "106.7217");
-getDailyWeather("-6.4213", "106.7217");
